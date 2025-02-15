@@ -22,18 +22,28 @@ class Ticket(models.Model):
 
     def assign_seat(self):
         """
-        Назначает случайный доступный номер места на рейс.
+        Назначает случайный доступный номер места на рейс, учитывая available_seats.
         """
+        voyage = self.voyage
+        # Проверяем, есть ли еще доступные места на этот рейс
+        if voyage.available_seats <= 0:
+            raise ValueError("Нет доступных мест на этот рейс")
+
         # Получаем все уже занятые места на этот рейс
-        booked_seats = Ticket.objects.filter(voyage=self.voyage).values_list('seat_number', flat=True)
-        # Получаем список всех доступных мест на судне
-        available_seats = list(range(1, self.voyage.ship.capacity + 1))
-        # Исключаем занятые места из списка доступных
-        available_seats = [seat for seat in available_seats if seat not in booked_seats]
+        booked_seats = Ticket.objects.filter(voyage=voyage).values_list('seat_number', flat=True)
+
+        # Создаем список потенциальных мест (от 1 до кол-ва мест в available_seats)
+        potential_seats = list(range(1, voyage.ship.capacity + 1))
+
+        # Фильтруем список потенциальных мест, оставляя только те, которые еще не забронированы
+        available_seats = [seat for seat in potential_seats if seat not in booked_seats]
 
         if available_seats:
             # Выбираем случайное место из списка доступных
-            return random.choice(available_seats) # <-ЗДЕСЬ ИЗМЕНЕНИЯ: (Возвращаем номер места, не сохраняем)
+            self.seat_number = random.choice(available_seats)  # <-ЗДЕСЬ ИЗМЕНЕНИЯ: (Присваиваем номер места экземпляру билета)
+            self.voyage.available_seats -= 1
+            self.voyage.save()
+            self.save()  # <-ЗДЕСЬ ИЗМЕНЕНИЯ: (Сохраняем изменения в базе данных)
         else:
             # Если нет доступных мест, выбрасываем исключение
             raise ValueError("Нет доступных мест на этот рейс")
