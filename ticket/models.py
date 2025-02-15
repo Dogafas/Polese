@@ -1,18 +1,46 @@
+# from django.db import models
+# from django.core.validators import MinValueValidator
+# from django.core.exceptions import ValidationError
+
+# def validate_seat_number(voyage, seat_number):
+#     """Проверяет, что номер места не превышает количество доступных мест."""
+#     if seat_number > voyage.available_seats:
+#         raise ValidationError(
+#             f"Номер места не может быть больше, чем количество доступных мест ({voyage.available_seats})."
+#         )
+
+# class Ticket(models.Model):
+#     ticket_id = models.AutoField(primary_key=True, verbose_name="ID билета")
+#     voyage = models.ForeignKey('voyages.Voyage', on_delete=models.CASCADE, verbose_name="Рейс")
+#     passenger = models.ForeignKey('passenger.Passenger', on_delete=models.CASCADE, verbose_name="Пассажир")
+#     seat_number = models.IntegerField(verbose_name="Номер места", validators=[MinValueValidator(1)])
+#     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена")
+#     purchase_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата покупки")
+#     status = models.CharField(max_length=50, verbose_name="Статус")
+
+#     def __str__(self):
+#         return f"Билет #{self.ticket_id} на {self.voyage}"
+
+#     def clean(self):
+#         """Проверяет, что номер места не превышает количество доступных мест в рейсе."""
+#         validate_seat_number(self.voyage, self.seat_number)
+
+#     class Meta:
+#         verbose_name = "Билет"
+#         verbose_name_plural = "Билеты"
+
 from django.db import models
-from django.contrib.auth.models import User
-from voyages.models import Voyage
-from passenger.models import Passenger  # <-ЗДЕСЬ ИЗМЕНЕНИЯ: (Исправлен импорт Passenger)
+from django.core.validators import MinValueValidator
+import random
 
 class Ticket(models.Model):
     ticket_id = models.AutoField(primary_key=True, verbose_name="ID билета")
-    voyage = models.ForeignKey('voyages.Voyage', on_delete=models.CASCADE, verbose_name="Рейс")  # <-ЗДЕСЬ ИЗМЕНЕНИЯ: (укажите voyages.Voyage)
+    voyage = models.ForeignKey('voyages.Voyage', on_delete=models.CASCADE, verbose_name="Рейс")
     passenger = models.ForeignKey('passenger.Passenger', on_delete=models.CASCADE, verbose_name="Пассажир")
-    seat_number = models.IntegerField(verbose_name="Номер места")
+    seat_number = models.IntegerField(verbose_name="Номер места", blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена")
     purchase_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата покупки")
     status = models.CharField(max_length=50, verbose_name="Статус")
-    qr_code = models.CharField(max_length=255, verbose_name="QR-код")
-  
 
     def __str__(self):
         return f"Билет #{self.ticket_id} на {self.voyage}"
@@ -20,3 +48,22 @@ class Ticket(models.Model):
     class Meta:
         verbose_name = "Билет"
         verbose_name_plural = "Билеты"
+
+    def assign_seat(self):
+        """
+        Назначает случайный доступный номер места на рейс.
+        """
+        # Получаем все уже занятые места на этот рейс
+        booked_seats = Ticket.objects.filter(voyage=self.voyage).values_list('seat_number', flat=True)
+        # Получаем список всех доступных мест на судне
+        available_seats = list(range(1, self.voyage.ship.capacity + 1))
+        # Исключаем занятые места из списка доступных
+        available_seats = [seat for seat in available_seats if seat not in booked_seats]
+
+        if available_seats:
+            # Выбираем случайное место из списка доступных
+            self.seat_number = random.choice(available_seats)
+            self.save()
+        else:
+            # Если нет доступных мест, выбрасываем исключение
+            raise ValueError("К сожалению на этот рейс больше нет доступных мест")
