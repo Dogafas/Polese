@@ -31,6 +31,9 @@ INSTALLED_APPS = [
     'ships',
     'routes',
     'voyages',
+    'passenger',
+    'ticket',
+    'phonenumber_field',
    
 ]
 
