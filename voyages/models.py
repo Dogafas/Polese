@@ -29,5 +29,5 @@ class VoyageStopPrice(models.Model):
         return f"Цена для {self.voyage} до {self.stop}: {self.price}"
 
     class Meta:
-        verbose_name = "Стоимость рейса до остановки"
-        verbose_name_plural = "Стоимости рейса до остановки"
+        verbose_name = "Стоимость билета до остановки"
+        verbose_name_plural = "Стоимости билета до остановки"

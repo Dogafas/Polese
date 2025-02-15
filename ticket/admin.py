@@ -1,12 +1,13 @@
 from pyexpat.errors import messages
 from django.contrib import admin, messages
 from .models import Ticket
-from .forms import TicketAdminForm  # <-ЗДЕСЬ ИЗМЕНЕНИЯ: (Импортируем нашу кастомную форму)
+from .forms import TicketAdminForm 
 
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ('ticket_id', 'voyage', 'passenger', 'seat_number', 'price', 'purchase_date', 'status')
+    list_display = ('passenger', 'seat_number','departure_stop', 'arrival_stop', 'voyage', 'price', 'purchase_date', 'status', )
     readonly_fields = ('seat_number',)
-    form = TicketAdminForm # <-ЗДЕСЬ ИЗМЕНЕНИЯ: (Указываем Django использовать нашу форму)
+    form = TicketAdminForm
+    list_per_page = 20
 
     def save_model(self, request, obj, form, change):
         """

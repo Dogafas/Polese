@@ -6,8 +6,8 @@ class Ticket(models.Model):
     ticket_id = models.AutoField(primary_key=True, verbose_name="ID билета")
     voyage = models.ForeignKey('voyages.Voyage', on_delete=models.CASCADE, verbose_name="Рейс")
     passenger = models.ForeignKey('passenger.Passenger', on_delete=models.CASCADE, verbose_name="Пассажир")
-    departure_stop = models.ForeignKey('routes.Stop', on_delete=models.CASCADE, related_name='departure_tickets', verbose_name="Пункт отправления") # <-ЗДЕСЬ ИЗМЕНЕНИЯ: (Добавлено поле departure_stop)
-    arrival_stop = models.ForeignKey('routes.Stop', on_delete=models.CASCADE, related_name='arrival_tickets', verbose_name="Пункт прибытия") # <-ЗДЕСЬ ИЗМЕНЕНИЯ: (Добавлено поле arrival_stop)
+    departure_stop = models.ForeignKey('routes.Stop', on_delete=models.CASCADE, related_name='departure_tickets', verbose_name="Пункт отправления") 
+    arrival_stop = models.ForeignKey('routes.Stop', on_delete=models.CASCADE, related_name='arrival_tickets', verbose_name="Пункт прибытия") 
     seat_number = models.IntegerField(verbose_name="Номер места", blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена")
     purchase_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата покупки")
@@ -40,10 +40,11 @@ class Ticket(models.Model):
 
         if available_seats:
             # Выбираем случайное место из списка доступных
-            self.seat_number = random.choice(available_seats)  # <-ЗДЕСЬ ИЗМЕНЕНИЯ: (Присваиваем номер места экземпляру билета)
+            self.seat_number = random.choice(available_seats)  
             self.voyage.available_seats -= 1
             self.voyage.save()
-            self.save()  # <-ЗДЕСЬ ИЗМЕНЕНИЯ: (Сохраняем изменения в базе данных)
+            self.save()  
         else:
             # Если нет доступных мест, выбрасываем исключение
             raise ValueError("Нет доступных мест на этот рейс")
+
