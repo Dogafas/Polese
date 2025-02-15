@@ -18,6 +18,7 @@ class RoutePointAdmin(admin.ModelAdmin):
     list_filter = ('route', 'stop')
     search_fields = ('route__name', 'stop__name')
     ordering = ('route', 'order')
+    list_per_page = 10
     
 
 @admin.register(Stop)
@@ -30,3 +31,4 @@ class RouteDepartureDateAdmin(admin.ModelAdmin):
     list_display = ('route', 'departure_date')
     list_filter = (('departure_date',  DateFieldListFilter), 'route')
     search_fields = ('route__name',)
+    list_per_page = 10
