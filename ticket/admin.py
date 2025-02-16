@@ -4,7 +4,7 @@ from .models import Ticket
 from .forms import TicketAdminForm 
 
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ('passenger', 'seat_number','departure_stop', 'arrival_stop', 'voyage', 'price', 'purchase_date', 'status', )
+    list_display = ('passenger', 'seat_number','departure_stop', 'arrival_stop', 'voyage', 'price', 'purchase_date', 'status', 'updated_at' )
     readonly_fields = ('seat_number',)
     form = TicketAdminForm
     list_per_page = 20

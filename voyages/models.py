@@ -10,6 +10,7 @@ class Voyage(models.Model):
     base_price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Базовая цена")
     available_seats = models.IntegerField(verbose_name="Доступные места", validators=[MinValueValidator(0)])
     status = models.CharField(max_length=50, verbose_name="Статус")
+    
 
     def __str__(self):
         return f"{self.route.name}"
