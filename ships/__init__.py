@@ -1,1 +1,1 @@
-default_app_config = 'ships.apps.ShipsConfig'
+default_app_config = "ships.apps.ShipsConfig"

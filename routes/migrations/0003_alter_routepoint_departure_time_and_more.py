@@ -6,18 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('routes', '0002_alter_route_options_alter_stop_options_and_more'),
+        ("routes", "0002_alter_route_options_alter_stop_options_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='routepoint',
-            name='departure_time',
-            field=models.TimeField(blank=True, null=True, verbose_name='Время отправления'),
+            model_name="routepoint",
+            name="departure_time",
+            field=models.TimeField(
+                blank=True, null=True, verbose_name="Время отправления"
+            ),
         ),
         migrations.AlterField(
-            model_name='routepoint',
-            name='price_multiplier',
-            field=models.DecimalField(blank=True, decimal_places=2, max_digits=5, null=True, verbose_name='Множитель цены'),
+            model_name="routepoint",
+            name="price_multiplier",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=2,
+                max_digits=5,
+                null=True,
+                verbose_name="Множитель цены",
+            ),
         ),
     ]

@@ -1,1 +1,1 @@
-default_app_config = 'ticket.apps.TicketConfig'
+default_app_config = "ticket.apps.TicketConfig"

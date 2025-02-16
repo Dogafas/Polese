@@ -7,28 +7,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('passenger', '0004_alter_passenger_options_remove_passenger_passport_and_more'),
+        (
+            "passenger",
+            "0004_alter_passenger_options_remove_passenger_passport_and_more",
+        ),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='passenger',
-            name='first_name',
-            field=models.CharField(max_length=50, verbose_name='Имя'),
+            model_name="passenger",
+            name="first_name",
+            field=models.CharField(max_length=50, verbose_name="Имя"),
         ),
         migrations.AlterField(
-            model_name='passenger',
-            name='last_name',
-            field=models.CharField(max_length=50, verbose_name='Фамилия'),
+            model_name="passenger",
+            name="last_name",
+            field=models.CharField(max_length=50, verbose_name="Фамилия"),
         ),
         migrations.AlterField(
-            model_name='passenger',
-            name='middle_name',
-            field=models.CharField(max_length=50, verbose_name='Отчество'),
+            model_name="passenger",
+            name="middle_name",
+            field=models.CharField(max_length=50, verbose_name="Отчество"),
         ),
         migrations.AlterField(
-            model_name='passenger',
-            name='phone_number',
-            field=phonenumber_field.modelfields.PhoneNumberField(max_length=128, region='RU', verbose_name='Номер телефона'),
+            model_name="passenger",
+            name="phone_number",
+            field=phonenumber_field.modelfields.PhoneNumberField(
+                max_length=128, region="RU", verbose_name="Номер телефона"
+            ),
         ),
     ]

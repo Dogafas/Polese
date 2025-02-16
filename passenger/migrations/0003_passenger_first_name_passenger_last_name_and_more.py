@@ -7,28 +7,30 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('passenger', '0002_alter_passenger_options'),
+        ("passenger", "0002_alter_passenger_options"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='passenger',
-            name='first_name',
-            field=models.CharField(blank=True, max_length=50, verbose_name='Имя'),
+            model_name="passenger",
+            name="first_name",
+            field=models.CharField(blank=True, max_length=50, verbose_name="Имя"),
         ),
         migrations.AddField(
-            model_name='passenger',
-            name='last_name',
-            field=models.CharField(blank=True, max_length=50, verbose_name='Фамилия'),
+            model_name="passenger",
+            name="last_name",
+            field=models.CharField(blank=True, max_length=50, verbose_name="Фамилия"),
         ),
         migrations.AddField(
-            model_name='passenger',
-            name='middle_name',
-            field=models.CharField(blank=True, max_length=50, verbose_name='Отчество'),
+            model_name="passenger",
+            name="middle_name",
+            field=models.CharField(blank=True, max_length=50, verbose_name="Отчество"),
         ),
         migrations.AlterField(
-            model_name='passenger',
-            name='phone_number',
-            field=phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, region='RU', verbose_name='Номер телефона'),
+            model_name="passenger",
+            name="phone_number",
+            field=phonenumber_field.modelfields.PhoneNumberField(
+                blank=True, max_length=128, region="RU", verbose_name="Номер телефона"
+            ),
         ),
     ]

@@ -6,31 +6,46 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('routes', '0001_initial'),
+        ("routes", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='route',
-            options={'verbose_name': 'Маршрут', 'verbose_name_plural': 'Маршрут'},
+            name="route",
+            options={"verbose_name": "Маршрут", "verbose_name_plural": "Маршрут"},
         ),
         migrations.AlterModelOptions(
-            name='stop',
-            options={'verbose_name': 'Остановка', 'verbose_name_plural': 'Остановочные пункты'},
+            name="stop",
+            options={
+                "verbose_name": "Остановка",
+                "verbose_name_plural": "Остановочные пункты",
+            },
         ),
         migrations.AlterField(
-            model_name='stop',
-            name='description',
-            field=models.TextField(blank=True, null=True, verbose_name='Описание'),
+            model_name="stop",
+            name="description",
+            field=models.TextField(blank=True, null=True, verbose_name="Описание"),
         ),
         migrations.AlterField(
-            model_name='stop',
-            name='latitude',
-            field=models.DecimalField(blank=True, decimal_places=6, max_digits=9, null=True, verbose_name='Широта'),
+            model_name="stop",
+            name="latitude",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=6,
+                max_digits=9,
+                null=True,
+                verbose_name="Широта",
+            ),
         ),
         migrations.AlterField(
-            model_name='stop',
-            name='longitude',
-            field=models.DecimalField(blank=True, decimal_places=6, max_digits=9, null=True, verbose_name='Долгота'),
+            model_name="stop",
+            name="longitude",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=6,
+                max_digits=9,
+                null=True,
+                verbose_name="Долгота",
+            ),
         ),
     ]

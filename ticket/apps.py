@@ -1,9 +1,7 @@
-from tabnanny import verbose
 from django.apps import AppConfig
 
 
 class TicketConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'ticket'
-    verbose_name = 'Билеты'
-
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "ticket"
+    verbose_name = "Билеты"

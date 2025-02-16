@@ -6,12 +6,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('routes', '0008_stop_created_at_stop_updated_at'),
+        ("routes", "0008_stop_created_at_stop_updated_at"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='stop',
-            options={'verbose_name': 'Остановочный пункт', 'verbose_name_plural': 'Остановочные пункты'},
+            name="stop",
+            options={
+                "verbose_name": "Остановочный пункт",
+                "verbose_name_plural": "Остановочные пункты",
+            },
         ),
     ]

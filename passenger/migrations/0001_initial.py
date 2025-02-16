@@ -10,20 +10,37 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('auth', '0012_alter_user_first_name_max_length'),
+        ("auth", "0012_alter_user_first_name_max_length"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Passenger',
+            name="Passenger",
             fields=[
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL, verbose_name='Пользователь')),
-                ('phone_number', models.CharField(blank=True, max_length=20, verbose_name='Номер телефона')),
-                ('passport', models.CharField(blank=True, max_length=20, verbose_name='Паспорт')),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        primary_key=True,
+                        serialize=False,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Пользователь",
+                    ),
+                ),
+                (
+                    "phone_number",
+                    models.CharField(
+                        blank=True, max_length=20, verbose_name="Номер телефона"
+                    ),
+                ),
+                (
+                    "passport",
+                    models.CharField(blank=True, max_length=20, verbose_name="Паспорт"),
+                ),
             ],
             options={
-                'verbose_name': 'Пассажир',
-                'verbose_name_plural': 'Пассажиры',
+                "verbose_name": "Пассажир",
+                "verbose_name_plural": "Пассажиры",
             },
         ),
     ]

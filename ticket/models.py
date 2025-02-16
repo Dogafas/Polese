@@ -1,16 +1,33 @@
 from django.db import models
-from django.core.validators import MinValueValidator
 import random
+from django.db import transaction
+
 
 class Ticket(models.Model):
     ticket_id = models.AutoField(primary_key=True, verbose_name="ID билета")
-    voyage = models.ForeignKey('voyages.Voyage', on_delete=models.CASCADE, verbose_name="Рейс")
-    passenger = models.ForeignKey('passenger.Passenger', on_delete=models.CASCADE, verbose_name="Пассажир")
-    departure_stop = models.ForeignKey('routes.Stop', on_delete=models.CASCADE, related_name='departure_tickets', verbose_name="Пункт отправления") 
-    arrival_stop = models.ForeignKey('routes.Stop', on_delete=models.CASCADE, related_name='arrival_tickets', verbose_name="Пункт прибытия") 
+    voyage = models.ForeignKey(
+        "voyages.Voyage", on_delete=models.CASCADE, verbose_name="Маршрут"
+    )
+    passenger = models.ForeignKey(
+        "passenger.Passenger", on_delete=models.CASCADE, verbose_name="Пассажир"
+    )
+    departure_stop = models.ForeignKey(
+        "routes.Stop",
+        on_delete=models.CASCADE,
+        related_name="departure_tickets",
+        verbose_name="Пункт отправления",
+    )
+    arrival_stop = models.ForeignKey(
+        "routes.Stop",
+        on_delete=models.CASCADE,
+        related_name="arrival_tickets",
+        verbose_name="Пункт прибытия",
+    )
     seat_number = models.IntegerField(verbose_name="Номер места", blank=True, null=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена")
-    purchase_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата оформления")
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена билета")
+    purchase_date = models.DateTimeField(
+        auto_now_add=True, verbose_name="Дата оплаты"
+    )
     status = models.CharField(max_length=50, verbose_name="Статус")
     is_paid = models.BooleanField(default=False, verbose_name="Оплачен")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
@@ -23,6 +40,7 @@ class Ticket(models.Model):
         verbose_name = "Билет"
         verbose_name_plural = "Билеты"
 
+    @transaction.atomic
     def assign_seat(self):
         """
         Назначает случайный доступный номер места на рейс, учитывая available_seats.
@@ -33,7 +51,9 @@ class Ticket(models.Model):
             raise ValueError("Нет доступных мест на этот рейс")
 
         # Получаем все уже занятые места на этот рейс
-        booked_seats = Ticket.objects.filter(voyage=voyage).values_list('seat_number', flat=True)
+        booked_seats = Ticket.objects.filter(voyage=voyage).values_list(
+            "seat_number", flat=True
+        )
 
         # Создаем список потенциальных мест (от 1 до кол-ва мест в available_seats)
         potential_seats = list(range(1, voyage.ship.capacity + 1))
@@ -43,11 +63,10 @@ class Ticket(models.Model):
 
         if available_seats:
             # Выбираем случайное место из списка доступных
-            self.seat_number = random.choice(available_seats)  
+            self.seat_number = random.choice(available_seats)
             self.voyage.available_seats -= 1
             self.voyage.save()
-            self.save()  
+            self.save()
         else:
             # Если нет доступных мест, выбрасываем исключение
             raise ValueError("Нет доступных мест на этот рейс")
-

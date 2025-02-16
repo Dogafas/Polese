@@ -7,45 +7,62 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('routes', '0005_route_created_at_route_updated_at'),
+        ("routes", "0005_route_created_at_route_updated_at"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='route',
-            name='arrival_location',
-            field=models.CharField(max_length=255, verbose_name='Пункт прибытия'),
+            model_name="route",
+            name="arrival_location",
+            field=models.CharField(max_length=255, verbose_name="Пункт прибытия"),
         ),
         migrations.AlterField(
-            model_name='route',
-            name='departure_location',
-            field=models.CharField(max_length=255, verbose_name='Пункт отправления'),
+            model_name="route",
+            name="departure_location",
+            field=models.CharField(max_length=255, verbose_name="Пункт отправления"),
         ),
         migrations.AlterField(
-            model_name='route',
-            name='distance',
-            field=models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Расстояние, км'),
+            model_name="route",
+            name="distance",
+            field=models.DecimalField(
+                decimal_places=2, max_digits=10, verbose_name="Расстояние, км"
+            ),
         ),
         migrations.AlterField(
-            model_name='route',
-            name='duration',
-            field=models.DurationField(verbose_name='Продолжительность, ч.'),
+            model_name="route",
+            name="duration",
+            field=models.DurationField(verbose_name="Продолжительность, ч."),
         ),
         migrations.AlterField(
-            model_name='route',
-            name='name',
-            field=models.CharField(max_length=255, verbose_name='Название маршрута'),
+            model_name="route",
+            name="name",
+            field=models.CharField(max_length=255, verbose_name="Название маршрута"),
         ),
         migrations.CreateModel(
-            name='RouteDepartureDate',
+            name="RouteDepartureDate",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('departure_date', models.DateField(verbose_name='Дата отправления')),
-                ('route', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='routes.route', verbose_name='Маршрут')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("departure_date", models.DateField(verbose_name="Дата отправления")),
+                (
+                    "route",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="routes.route",
+                        verbose_name="Маршрут",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Дата отправления маршрута',
-                'verbose_name_plural': 'Даты отправления маршрута',
+                "verbose_name": "Дата отправления маршрута",
+                "verbose_name_plural": "Даты отправления маршрута",
             },
         ),
     ]

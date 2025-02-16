@@ -6,22 +6,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ships', '0005_alter_ship_options_alter_ship_capacity_and_more'),
+        ("ships", "0005_alter_ship_options_alter_ship_capacity_and_more"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='ship',
-            options={'verbose_name': 'Судно', 'verbose_name_plural': 'Судно/теплоход'},
+            name="ship",
+            options={"verbose_name": "Судно", "verbose_name_plural": "Судно/теплоход"},
         ),
         migrations.AlterField(
-            model_name='ship',
-            name='capacity',
-            field=models.IntegerField(verbose_name='Вместимость, пасс.'),
+            model_name="ship",
+            name="capacity",
+            field=models.IntegerField(verbose_name="Вместимость, пасс."),
         ),
         migrations.AlterField(
-            model_name='ship',
-            name='name',
-            field=models.CharField(max_length=255, unique=True, verbose_name='Название судна'),
+            model_name="ship",
+            name="name",
+            field=models.CharField(
+                max_length=255, unique=True, verbose_name="Название судна"
+            ),
         ),
     ]

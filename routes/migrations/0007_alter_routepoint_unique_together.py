@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('routes', '0006_alter_route_arrival_location_and_more'),
+        ("routes", "0006_alter_route_arrival_location_and_more"),
     ]
 
     operations = [
         migrations.AlterUniqueTogether(
-            name='routepoint',
-            unique_together={('route', 'order')},
+            name="routepoint",
+            unique_together={("route", "order")},
         ),
     ]

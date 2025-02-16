@@ -1,1 +1,1 @@
-default_app_config = 'routes.apps.RoutesConfig'
+default_app_config = "routes.apps.RoutesConfig"

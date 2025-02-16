@@ -7,22 +7,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('routes', '0009_alter_stop_options'),
-        ('voyages', '0002_alter_voyage_available_seats'),
+        ("routes", "0009_alter_stop_options"),
+        ("voyages", "0002_alter_voyage_available_seats"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='voyage',
-            name='arrival_datetime',
+            model_name="voyage",
+            name="arrival_datetime",
         ),
         migrations.RemoveField(
-            model_name='voyage',
-            name='departure_datetime',
+            model_name="voyage",
+            name="departure_datetime",
         ),
         migrations.AlterField(
-            model_name='voyagestopprice',
-            name='stop',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='routes.stop', verbose_name='Остановочный пункт'),
+            model_name="voyagestopprice",
+            name="stop",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="routes.stop",
+                verbose_name="Остановочный пункт",
+            ),
         ),
     ]

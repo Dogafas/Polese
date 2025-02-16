@@ -1,26 +1,22 @@
-from pyexpat.errors import messages
-from django.contrib import admin, messages
+from django.contrib import admin
 from .models import Ticket
-from .forms import TicketAdminForm 
+from .forms import TicketAdminForm
+
 
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ('passenger', 'seat_number','departure_stop', 'arrival_stop', 'voyage', 'price', 'purchase_date', 'status', 'updated_at' )
-    readonly_fields = ('seat_number',)
-    form = TicketAdminForm
+    form = TicketAdminForm  # Указываем кастомную форму
+    list_display = (
+        "voyage",
+        "departure_stop",
+        "arrival_stop",
+        "seat_number",
+        "created_at",
+        "updated_at",
+        "is_paid",
+    )
+    list_filter = ("voyage", "is_paid")
+    search_fields = ("voyage__name", "departure_stop__name", "arrival_stop__name")
     list_per_page = 20
 
-    def save_model(self, request, obj, form, change):
-        """
-        При создании нового билета назначаем номер места.
-        """
-        try:
-            if obj.seat_number is None: # Если номер места не назначен
-                obj.assign_seat() #  Назначаем место
-            super().save_model(request, obj, form, change)
-            self.message_user(request, f"Билет успешно оформлен! Номер вашего места: {obj.seat_number}",
-                              level=messages.SUCCESS)
-        except ValueError as e:
-            # Обработка ситуации, когда нет доступных мест
-            self.message_user(request, str(e), level='ERROR')
 
 admin.site.register(Ticket, TicketAdmin)

@@ -9,39 +9,98 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('routes', '0009_alter_stop_options'),
-        ('ships', '0005_alter_ship_options_alter_ship_capacity_and_more'),
+        ("routes", "0009_alter_stop_options"),
+        ("ships", "0005_alter_ship_options_alter_ship_capacity_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Voyage',
+            name="Voyage",
             fields=[
-                ('voyage_id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID рейса')),
-                ('departure_datetime', models.DateTimeField(verbose_name='Дата и время отправления')),
-                ('arrival_datetime', models.DateTimeField(verbose_name='Дата и время прибытия')),
-                ('base_price', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Базовая цена')),
-                ('available_seats', models.IntegerField(verbose_name='Доступные места')),
-                ('status', models.CharField(max_length=50, verbose_name='Статус')),
-                ('route', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='routes.route', verbose_name='Маршрут')),
-                ('ship', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ships.ship', verbose_name='Судно')),
+                (
+                    "voyage_id",
+                    models.AutoField(
+                        primary_key=True, serialize=False, verbose_name="ID рейса"
+                    ),
+                ),
+                (
+                    "departure_datetime",
+                    models.DateTimeField(verbose_name="Дата и время отправления"),
+                ),
+                (
+                    "arrival_datetime",
+                    models.DateTimeField(verbose_name="Дата и время прибытия"),
+                ),
+                (
+                    "base_price",
+                    models.DecimalField(
+                        decimal_places=2, max_digits=10, verbose_name="Базовая цена"
+                    ),
+                ),
+                (
+                    "available_seats",
+                    models.IntegerField(verbose_name="Доступные места"),
+                ),
+                ("status", models.CharField(max_length=50, verbose_name="Статус")),
+                (
+                    "route",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="routes.route",
+                        verbose_name="Маршрут",
+                    ),
+                ),
+                (
+                    "ship",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="ships.ship",
+                        verbose_name="Судно",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Рейс',
-                'verbose_name_plural': 'Рейсы',
+                "verbose_name": "Рейс",
+                "verbose_name_plural": "Рейсы",
             },
         ),
         migrations.CreateModel(
-            name='VoyageStopPrice',
+            name="VoyageStopPrice",
             fields=[
-                ('voyage_stop_price_id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID стоимости рейса до остановки')),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Цена')),
-                ('stop', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='routes.stop', verbose_name='Остановка')),
-                ('voyage', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='voyages.voyage', verbose_name='Рейс')),
+                (
+                    "voyage_stop_price_id",
+                    models.AutoField(
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID стоимости рейса до остановки",
+                    ),
+                ),
+                (
+                    "price",
+                    models.DecimalField(
+                        decimal_places=2, max_digits=10, verbose_name="Цена"
+                    ),
+                ),
+                (
+                    "stop",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="routes.stop",
+                        verbose_name="Остановка",
+                    ),
+                ),
+                (
+                    "voyage",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="voyages.voyage",
+                        verbose_name="Рейс",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Стоимость рейса до остановки',
-                'verbose_name_plural': 'Стоимости рейса до остановки',
+                "verbose_name": "Стоимость рейса до остановки",
+                "verbose_name_plural": "Стоимости рейса до остановки",
             },
         ),
     ]

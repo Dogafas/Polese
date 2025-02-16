@@ -1,0 +1,8 @@
+{
+    "terminal.integrated.suggest.providers": {
+
+        "terminal-suggest": true,
+        "pwsh-shell-integration": false
+    },
+    "editor.defaultFormatter": "ms-python.black-formatter"
+}

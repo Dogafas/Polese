@@ -7,13 +7,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('routes', '0003_alter_routepoint_departure_time_and_more'),
+        ("routes", "0003_alter_routepoint_departure_time_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='routepoint',
-            name='order',
-            field=models.IntegerField(validators=[django.core.validators.MinValueValidator(0)], verbose_name='Порядок'),
+            model_name="routepoint",
+            name="order",
+            field=models.IntegerField(
+                validators=[django.core.validators.MinValueValidator(0)],
+                verbose_name="Порядок",
+            ),
         ),
     ]

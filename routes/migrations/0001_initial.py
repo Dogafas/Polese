@@ -8,56 +8,120 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Route',
+            name="Route",
             fields=[
-                ('route_id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID маршрута')),
-                ('name', models.CharField(max_length=255, verbose_name='Название')),
-                ('departure_location', models.CharField(max_length=255, verbose_name='Место отправления')),
-                ('arrival_location', models.CharField(max_length=255, verbose_name='Место прибытия')),
-                ('distance', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Расстояние')),
-                ('duration', models.DurationField(verbose_name='Продолжительность')),
+                (
+                    "route_id",
+                    models.AutoField(
+                        primary_key=True, serialize=False, verbose_name="ID маршрута"
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Название")),
+                (
+                    "departure_location",
+                    models.CharField(max_length=255, verbose_name="Место отправления"),
+                ),
+                (
+                    "arrival_location",
+                    models.CharField(max_length=255, verbose_name="Место прибытия"),
+                ),
+                (
+                    "distance",
+                    models.DecimalField(
+                        decimal_places=2, max_digits=10, verbose_name="Расстояние"
+                    ),
+                ),
+                ("duration", models.DurationField(verbose_name="Продолжительность")),
             ],
             options={
-                'verbose_name': 'Маршрут',
-                'verbose_name_plural': 'Маршруты',
+                "verbose_name": "Маршрут",
+                "verbose_name_plural": "Маршруты",
             },
         ),
         migrations.CreateModel(
-            name='Stop',
+            name="Stop",
             fields=[
-                ('stop_id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID остановки')),
-                ('name', models.CharField(max_length=255, verbose_name='Название')),
-                ('latitude', models.DecimalField(decimal_places=6, max_digits=9, verbose_name='Широта')),
-                ('longitude', models.DecimalField(decimal_places=6, max_digits=9, verbose_name='Долгота')),
-                ('description', models.TextField(verbose_name='Описание')),
+                (
+                    "stop_id",
+                    models.AutoField(
+                        primary_key=True, serialize=False, verbose_name="ID остановки"
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Название")),
+                (
+                    "latitude",
+                    models.DecimalField(
+                        decimal_places=6, max_digits=9, verbose_name="Широта"
+                    ),
+                ),
+                (
+                    "longitude",
+                    models.DecimalField(
+                        decimal_places=6, max_digits=9, verbose_name="Долгота"
+                    ),
+                ),
+                ("description", models.TextField(verbose_name="Описание")),
             ],
             options={
-                'verbose_name': 'Остановка',
-                'verbose_name_plural': 'Остановки',
+                "verbose_name": "Остановка",
+                "verbose_name_plural": "Остановки",
             },
         ),
         migrations.CreateModel(
-            name='RoutePoint',
+            name="RoutePoint",
             fields=[
-                ('route_point_id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID точки маршрута')),
-                ('order', models.IntegerField(verbose_name='Порядок')),
-                ('arrival_time', models.TimeField(verbose_name='Время прибытия')),
-                ('departure_time', models.TimeField(verbose_name='Время отправления')),
-                ('price_multiplier', models.DecimalField(decimal_places=2, max_digits=5, verbose_name='Множитель цены')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Дата обновления')),
-                ('route', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='routes.route', verbose_name='Маршрут')),
-                ('stop', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='routes.stop', verbose_name='Остановка')),
+                (
+                    "route_point_id",
+                    models.AutoField(
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID точки маршрута",
+                    ),
+                ),
+                ("order", models.IntegerField(verbose_name="Порядок")),
+                ("arrival_time", models.TimeField(verbose_name="Время прибытия")),
+                ("departure_time", models.TimeField(verbose_name="Время отправления")),
+                (
+                    "price_multiplier",
+                    models.DecimalField(
+                        decimal_places=2, max_digits=5, verbose_name="Множитель цены"
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата создания"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="Дата обновления"),
+                ),
+                (
+                    "route",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="routes.route",
+                        verbose_name="Маршрут",
+                    ),
+                ),
+                (
+                    "stop",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="routes.stop",
+                        verbose_name="Остановка",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Точка маршрута',
-                'verbose_name_plural': 'Точки маршрута',
-                'ordering': ['order'],
+                "verbose_name": "Точка маршрута",
+                "verbose_name_plural": "Точки маршрута",
+                "ordering": ["order"],
             },
         ),
     ]

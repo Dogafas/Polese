@@ -6,12 +6,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('voyages', '0003_remove_voyage_arrival_datetime_and_more'),
+        ("voyages", "0003_remove_voyage_arrival_datetime_and_more"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='voyagestopprice',
-            options={'verbose_name': 'Стоимость билета до остановки', 'verbose_name_plural': 'Стоимости билета до остановки'},
+            name="voyagestopprice",
+            options={
+                "verbose_name": "Стоимость билета до остановки",
+                "verbose_name_plural": "Стоимости билета до остановки",
+            },
         ),
     ]

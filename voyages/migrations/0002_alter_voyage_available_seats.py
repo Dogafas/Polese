@@ -7,13 +7,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('voyages', '0001_initial'),
+        ("voyages", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='voyage',
-            name='available_seats',
-            field=models.IntegerField(validators=[django.core.validators.MinValueValidator(0)], verbose_name='Доступные места'),
+            model_name="voyage",
+            name="available_seats",
+            field=models.IntegerField(
+                validators=[django.core.validators.MinValueValidator(0)],
+                verbose_name="Доступные места",
+            ),
         ),
     ]

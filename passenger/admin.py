@@ -2,20 +2,34 @@ from django.contrib import admin
 from .models import Passenger
 from django import forms
 
+
 class PassengerForm(forms.ModelForm):
-    
+
     class Meta:
         model = Passenger
-        fields = '__all__'
+        fields = "__all__"
         widgets = {
-            'phone_number': forms.TextInput(attrs={'placeholder': '+7-XXX-XXX-XX-XX'}),
-            'passport_series': forms.TextInput(attrs={'placeholder': 'XXXX'}),
-            'passport_number': forms.TextInput(attrs={'placeholder': 'XXXXXX'})
+            "phone_number": forms.TextInput(attrs={"placeholder": "+7-XXX-XXX-XX-XX"}),
+            "passport_series": forms.TextInput(attrs={"placeholder": "XXXX"}),
+            "passport_number": forms.TextInput(attrs={"placeholder": "XXXXXX"}),
         }
 
 
 @admin.register(Passenger)
 class PassengerAdmin(admin.ModelAdmin):
     form = PassengerForm
-    list_display = ('user', 'first_name', 'last_name', 'phone_number', 'passport_series', 'passport_number')
-    search_fields = ('user__username', 'first_name', 'last_name', 'passport_series', 'passport_number')
+    list_display = (
+        "user",
+        "first_name",
+        "last_name",
+        "phone_number",
+        "passport_series",
+        "passport_number",
+    )
+    search_fields = (
+        "user__username",
+        "first_name",
+        "last_name",
+        "passport_series",
+        "passport_number",
+    )
