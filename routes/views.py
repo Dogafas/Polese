@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from .models import Route, RoutePoint, RouteDepartureDate
-import calendar  # <-ЗДЕСЬ ИЗМЕНЕНИЯ: ("Импортируем модуль calendar для работы с датами")
-from datetime import datetime  # <-ЗДЕСЬ ИЗМЕНЕНИЯ: ("Импортируем datetime")
+import calendar
 
 
 def schedule_view(request):
@@ -16,7 +15,7 @@ def schedule_view(request):
             RoutePoint.objects.filter(route=route)
             .order_by("order")
             .select_related("stop")
-        )  # <-ЗДЕСЬ ИЗМЕНЕНИЯ: ("Улучшаем запрос, чтобы получить данные об остановках сразу")
+        )
         departure_dates = RouteDepartureDate.objects.filter(route=route)
 
         # Формируем данные для шаблона

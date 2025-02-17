@@ -1,11 +1,12 @@
-{% extends 'base.html' %} {% load static %}
-
-{% block title %}Расписание маршрутов{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %}Расписание
+маршрутов{% endblock %} {% block content %}
 <div class="schedule-container">
   <h1 class="schedule-title">Расписание маршрутов</h1>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/schedule.css' %}" />
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{% static 'css/schedule.css' %}"
+  />
   {% if schedule_data %} {% for route_data in schedule_data %}
   <div class="route-card">
     <div class="route-header">
@@ -20,7 +21,6 @@
         </p>
       </div>
     </div>
-
     <div class="route-stops">
       <h3>Остановки:</h3>
       <ul class="stops-list">
@@ -39,9 +39,7 @@
       <h3>Даты отправления:</h3>
       <ul class="departures-list">
         {% for departure in route_data.departures %}
-        <li class="departure-item">
-          {{ departure.date|date:"l, d E" }}
-        </li>
+        <li class="departure-item">{{ departure.date|date:"l, d E" }}</li>
         {% endfor %}
       </ul>
     </div>
