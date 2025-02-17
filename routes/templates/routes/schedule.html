@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% load static %}
+
+{% block title %}Расписание маршрутов{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/schedule.css' %}" />
+{% block content %}
+<div class="schedule-container">
+  <h1 class="schedule-title">Расписание маршрутов</h1>
+
+  {% if schedule_data %} {% for route_data in schedule_data %}
+  <div class="route-card">
+    <div class="route-header">
+      <h2>Маршрут: {{ route_data.route.name }}</h2>
+      <div class="route-locations">
+        <p>
+          <strong>Пункт отправления:</strong
+          >{{route_data.route.departure_location}}
+        </p>
+        <p>
+          <strong>Пункт прибытия:</strong> {{route_data.route.arrival_location}}
+        </p>
+      </div>
+    </div>
+
+    <div class="route-stops">
+      <h3>Остановки:</h3>
+      <ul class="stops-list">
+        {% for stop in route_data.stops %}
+        <li class="stop-item">
+          {{ stop.name }}
+          <span class="arrival-time"
+            >(Время прибытия: {{ stop.arrival_time|time:"H:i" }})</span
+          >
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="route-departures">
+      <h3>Даты отправления:</h3>
+      <ul class="departures-list">
+        {% for departure in route_data.departures %}
+        <li class="departure-item">
+          {{ departure.date|date:"l, d E" }}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="route-info">
+      <p class="flights-count">
+        Количество рейсов в месяц: {{ route_data.flights_per_month }}
+      </p>
+    </div>
+  </div>
+  {% endfor %} {% else %}
+  <div class="no-schedule">
+    <p>На данный момент расписание не доступно.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
