@@ -1,11 +1,11 @@
 {% extends 'base.html' %} {% load static %}
 
 {% block title %}Расписание маршрутов{% endblock %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/schedule.css' %}" />
+
 {% block content %}
 <div class="schedule-container">
   <h1 class="schedule-title">Расписание маршрутов</h1>
-
+  <link rel="stylesheet" type="text/css" href="{% static 'css/schedule.css' %}" />
   {% if schedule_data %} {% for route_data in schedule_data %}
   <div class="route-card">
     <div class="route-header">
