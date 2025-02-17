@@ -60,5 +60,3 @@ class TicketAdminForm(forms.ModelForm):
                 raise ValidationError("Вы выбрали противоположный маршрут!")
 
         return cleaned_data
-
-    

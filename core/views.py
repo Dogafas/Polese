@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def home(request):
+    """
+    Представление для отображения главной страницы.
+    """
+    return render(request, "core/home.html")

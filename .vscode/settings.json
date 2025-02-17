@@ -4,5 +4,8 @@
         "terminal-suggest": true,
         "pwsh-shell-integration": false
     },
-    "editor.defaultFormatter": "ms-python.black-formatter"
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "[django-html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }
