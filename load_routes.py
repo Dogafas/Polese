@@ -39,13 +39,13 @@ import json
 import argparse
 from datetime import date, timedelta
 from dotenv import load_dotenv
+from routes.models import Route, RouteDepartureDate
+from routes.serializers import RouteDepartureDateSerializer
 
 # Настройка Django окружения
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "polese.settings")
 django.setup()
 
-from routes.models import Route, RouteDepartureDate
-from routes.serializers import RouteDepartureDateSerializer
 
 load_dotenv()
 
