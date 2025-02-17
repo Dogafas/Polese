@@ -1,136 +1,155 @@
 /* Общие стили */
 body {
-    font-family: "Arial", sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f8f8f8;
-    margin: 0;
-    padding: 0;
-  }
-  
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 0;
+}
+
+.schedule-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-title {
+  font-size: 2.5em;
+  color: #0056b3;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Карточка маршрута */
+.route-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.route-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+}
+
+.route-header {
+  border-bottom: 2px solid #eee;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+}
+
+.route-header h2 {
+  color: #007bff;
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 1.75em;
+}
+
+.route-locations {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1em;
+  color: #555;
+}
+
+.route-locations p {
+  margin: 5px 0;
+}
+
+/* Стили для остановок и дат отправления */
+.route-stops,
+.route-departures {
+  margin-top: 15px;
+}
+
+.route-stops h3,
+.route-departures h3 {
+  color: #343a40;
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+.stops-list,
+.departures-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.stop-item,
+.departure-item {
+  margin: 8px 0;
+  font-size: 1.1em;
+  color: #495057;
+}
+
+.arrival-time,
+.departure-details {
+  color: #6c757d;
+  font-style: italic;
+  margin-left: 10px;
+}
+
+/* Информация о маршруте */
+.route-info {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px dashed #ccc;
+}
+
+.flights-count {
+  font-size: 1.1em;
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Сообщение об отсутствии расписания */
+.no-schedule {
+  text-align: center;
+  padding: 40px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  color: #666;
+  font-size: 1.2em;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
   .schedule-container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin: 10px auto;
   }
-  
-  .schedule-title {
-    font-size: 2.5em;
-    color: #0056b3;
-    text-align: center;
-    margin-bottom: 20px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Карточка маршрута */
-  .route-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    padding: 15px;
-    transition: all 0.3s ease;
-  }
-  
-  .route-card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    transform: translateY(-3px);
-  }
-  
-  .route-header {
-    border-bottom: 2px solid #eee;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-  }
-  
-  .route-header h2 {
-    color: #007bff;
-    margin-top: 0;
-    margin-bottom: 5px;
-    font-size: 1.75em;
-  }
-  
+
   .route-locations {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.1em;
-    color: #555;
+    flex-direction: column;
   }
-  
+
   .route-locations p {
-    margin: 5px 0;
+    margin: 2px 0;
   }
-  
-  /* Стили для остановок и дат отправления */
-  .route-stops,
-  .route-departures {
-    margin-top: 15px;
+}
+
+/* Styles for route cards next to each other */ 
+.routes-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.route-card {   
+  width: 45%;  
+  margin-bottom: 20px;  
+}
+
+/* Если нужно больше контроля над переносом, можно добавить media query */
+@media (max-width: 768px) {  
+  .route-card {  
+      width: 100%;  
   }
-  
-  .route-stops h3,
-  .route-departures h3 {
-    color: #343a40;
-    font-size: 1.4em;
-    margin-bottom: 10px;
-  }
-  
-  .stops-list,
-  .departures-list {
-    list-style: none;
-    padding-left: 0;
-  }
-  
-  .stop-item,
-  .departure-item {
-    margin: 8px 0;
-    font-size: 1.1em;
-    color: #495057;
-  }
-  
-  .arrival-time,
-  .departure-details {
-    color: #6c757d;
-    font-style: italic;
-    margin-left: 10px;
-  }
-  
-  /* Информация о маршруте */
-  .route-info {
-    margin-top: 20px;
-    padding-top: 10px;
-    border-top: 1px dashed #ccc;
-  }
-  
-  .flights-count {
-    font-size: 1.1em;
-    color: #28a745;
-    font-weight: bold;
-  }
-  
-  /* Сообщение об отсутствии расписания */
-  .no-schedule {
-    text-align: center;
-    padding: 40px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    color: #666;
-    font-size: 1.2em;
-  }
-  
-  /* Адаптивные стили */
-  @media (max-width: 768px) {
-    .schedule-container {
-      padding: 10px;
-      margin: 10px auto;
-    }
-  
-    .route-locations {
-      flex-direction: column;
-    }
-  
-    .route-locations p {
-      margin: 2px 0;
-    }
-  }
+}

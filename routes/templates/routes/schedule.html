@@ -1,5 +1,8 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Расписание
-маршрутов{% endblock %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+{% load my_filters %}
+{% block title %}Расписание маршрутов{% endblock %}
+{% block content %}
 <div class="schedule-container">
   <h1 class="schedule-title">Расписание маршрутов</h1>
   <link
@@ -7,53 +10,76 @@
     type="text/css"
     href="{% static 'css/schedule.css' %}"
   />
-  {% if schedule_data %} {% for route_data in schedule_data %}
-  <div class="route-card">
-    <div class="route-header">
-      <h2>Маршрут: {{ route_data.route.name }}</h2>
-      <div class="route-locations">
-        <p>
-          <strong>Пункт отправления:</strong
-          >{{route_data.route.departure_location}}
-        </p>
-        <p>
-          <strong>Пункт прибытия:</strong> {{route_data.route.arrival_location}}
-        </p>
+  <div class="routes-wrapper">
+    {% if schedule_data %}
+      {% for route_data in schedule_data %}
+        <div class="route-card">
+          <div class="route-header">
+            <h2>Маршрут: {{ route_data.route.name }}</h2>
+            <div class="route-locations">
+              <p>
+                <strong>Пункт отправления:</strong>
+                {{ route_data.departure_location }}
+              </p>
+              <p>
+                <strong>Пункт прибытия:</strong> {{ route_data.arrival_location }}
+              </p>
+            </div>
+          </div>
+          <div class="route-stops">
+            <h3>Остановочные пункты:</h3>
+            <ul class="stops-list">
+              {% for stop in route_data.stops %}
+                <li class="stop-item">
+                  {{ stop.name }}
+                  <span class="arrival-time"
+                    >(Время прибытия: {{ stop.arrival_time|time:"H:i" }})</span
+                  >
+                </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="route-departures">
+          <h3>Даты отправления:</h3>
+          <ul class="departures-list">
+            {% for departure in route_data.departures %}
+              <li class="departure-item">{{ departure.date|date:"l, d E" }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="route-info">
+            {% for month, count in route_data.flights_per_month %}  
+              <p class="flights-count">
+                Количество рейсов в {{ route_data.month_names|get_item:month }}: {{ count }}  
+              </p>
+            {% endfor %}
+        </div>
       </div>
+    {% endfor %}
+  {% else %}
+    <div class="no-schedule">
+      <p>На данный момент расписание не доступно.</p>
     </div>
-    <div class="route-stops">
-      <h3>Остановки:</h3>
-      <ul class="stops-list">
-        {% for stop in route_data.stops %}
-        <li class="stop-item">
-          {{ stop.name }}
-          <span class="arrival-time"
-            >(Время прибытия: {{ stop.arrival_time|time:"H:i" }})</span
-          >
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-
-    <div class="route-departures">
-      <h3>Даты отправления:</h3>
-      <ul class="departures-list">
-        {% for departure in route_data.departures %}
-        <li class="departure-item">{{ departure.date|date:"l, d E" }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-
-    <div class="route-info">
-      <p class="flights-count">
-        Количество рейсов в месяц: {{ route_data.flights_per_month }}
-      </p>
-    </div>
-  </div>
-  {% endfor %} {% else %}
-  <div class="no-schedule">
-    <p>На данный момент расписание не доступно.</p>
-  </div>
   {% endif %}
+  </div>
+  <div class="pagination">
+    <span class="step-links">
+        {% if routes.has_previous %}
+            <a href="?page=1">« first</a>
+            <a href="?page={{ routes.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ routes.number }} of {{ routes.paginator.num_pages }}.
+        </span>
+
+        {% if routes.has_next %}
+            <a href="?page={{ routes.next_page_number }}">next</a>
+            <a href="?page={{ routes.paginator.num_pages }}">last »</a>
+        {% endif %}
+    </span>
+</div>
 </div>
 {% endblock %}
