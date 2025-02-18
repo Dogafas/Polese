@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "passenger",
     "ticket",
     "phonenumber_field",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
